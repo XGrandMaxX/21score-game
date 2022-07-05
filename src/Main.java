@@ -30,6 +30,7 @@ public class Main {
                 PlayerPass=false;
                 CardAmount = cards.get(RandomCardIndex);
                 if (PlayerPoint > 21) {
+                    System.out.println("You already have more than 21 points, showing results");
                     PlayerPass=true;
                     CheckResults();
                 }
@@ -71,11 +72,13 @@ public class Main {
 
     static void BotLogic() {
         int BotTakeCardRand = (int) (Math.random() * cards.size());
+        int BotCardAmount;
+        BotCardAmount = cards.get(BotTakeCardRand);
         if (BotPoint >= 16) {
             BotPass = true;
             System.out.println("Bot pass");
         } else {
-            BotPoint += cards.get(BotTakeCardRand);
+            BotPoint += BotCardAmount;
             cards.remove(BotTakeCardRand);
         }
     }
