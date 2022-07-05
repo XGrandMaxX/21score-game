@@ -76,6 +76,8 @@ public class Main {
     }
 
     static void CheckResults() {
+     if (PlayerPass && BotPass) {
+            
         if (PlayerPoint > BotPoint && PlayerPoint <22 || PlayerPoint==21) {
             System.out.println("");
             System.out.println("Player won by typing " + PlayerPoint + " score");
@@ -100,12 +102,10 @@ public class Main {
             System.out.println("Player won by typing " + PlayerPoint + " score");
             System.out.println("Bot score = "+BotPoint);
         }
-        else if (PlayerPass && BotPass) {
-            System.out.println("" + "\n" + "==================");
-            System.out.println("Player score = " + PlayerPoint + "\n" + "Bot score = " + BotPoint); //Результаты, у кого больше, тот и победил
-            System.out.println("==================");
-        }
+        
+        
         else
             PlayerTakeCards();
+    }
     }
 }
