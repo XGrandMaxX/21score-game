@@ -27,6 +27,7 @@ public class Main {
         String PlayerTakeCard = sc.next();
         switch (PlayerTakeCard) {
             case "y":
+                PlayerPass=false;
                 CardAmount = cards.get(RandomCardIndex);
                 if (PlayerPoint > 21) {
                     PlayerPass=true;
@@ -56,13 +57,13 @@ public class Main {
                 break;
         }
     }
-    
+
 
     static void BotTakeCards() {
         System.out.println("Now bot take a random card");
         BotLogic();
         System.out.println("Left in the deck " + cards.size() + "/11" + " cards");
-        if(PlayerPass && BotPass)
+        if(PlayerPass==true && BotPass==true)
             CheckResults();
         else
         PlayerTakeCards();
@@ -82,31 +83,46 @@ public class Main {
     static void CheckResults() {
         if (PlayerPoint > BotPoint && PlayerPoint <= 21 && BotPoint <= 21) {
             System.out.println("");
+            System.out.println("======================");
             System.out.println("Player won by typing " + PlayerPoint + " score");
             System.out.println("Bot score = " + BotPoint);
+            System.out.println("======================");
+        }
+        else if (PlayerPoint <=0 && BotPoint >0) {
+            System.out.println("");
+            System.out.println("======================");
+            System.out.println("Bot won by typing " + BotPoint + " score");
+            System.out.println("!Player has never drawn a card!");
+            System.out.println("======================");
         }
         else if (PlayerPoint < BotPoint && PlayerPoint <=21 && BotPoint <=21){
             System.out.println("");
+            System.out.println("======================");
             System.out.println("Bot won by typing " + BotPoint + " score");
             System.out.println("Player score = " + PlayerPoint);
+            System.out.println("======================");
         }
         else if (PlayerPoint == BotPoint || PlayerPoint >21 && BotPoint >21) {
             System.out.println("");
             System.out.println("Draw! Nice game");
-            System.out.println("====================");
+            System.out.println("======================");
             System.out.println("Player score = "+ PlayerPoint);
             System.out.println("Bot score = "+ BotPoint);
-            System.out.println("====================");
+            System.out.println("======================");
         }
         else if (PlayerPoint > 21 && BotPoint <=21) {
             System.out.println("");
+            System.out.println("======================");
             System.out.println("Bot won by typing " + BotPoint + " score");
             System.out.println("Player score = " + PlayerPoint);
+            System.out.println("======================");
         }
         else if (PlayerPoint <=21 && BotPoint >21) {
             System.out.println("");
+            System.out.println("======================");
             System.out.println("Player won by typing " + PlayerPoint + " score");
             System.out.println("Bot score = " + BotPoint);
+            System.out.println("======================");
         }
     }
 }
