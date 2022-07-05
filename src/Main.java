@@ -28,24 +28,27 @@ public class Main {
         switch (PlayerTakeCard) {
             case "y":
                 CardAmount = cards.get(RandomCardIndex);
-                if(PlayerPoint >21)
+                if (PlayerPoint > 21) {
+                    PlayerPass=true;
                     CheckResults();
+                }
                 else {
+                    if (cards.size() < 1)
+                        CheckResults();
                     System.out.println("You get " + CardAmount + " points");
                     PlayerPoint += CardAmount;
                     System.out.println("Your total score = " + PlayerPoint);
                     cards.remove(RandomCardIndex);
-                }
-                if (cards.size() < 1) {
-                    CheckResults();
-                }
-                else
                     BotTakeCards();
+                }
                 break;
             case "n":
                 PlayerPass = true;
                 System.out.println("You pass");
-                BotTakeCards();
+                if (PlayerPass && BotPass)
+                    CheckResults();
+                else
+                    BotTakeCards();
                 break;
             default:
                 System.out.println("You entered an invalid value");
@@ -53,15 +56,16 @@ public class Main {
                 break;
         }
     }
+    
 
     static void BotTakeCards() {
         System.out.println("Now bot take a random card");
         BotLogic();
         System.out.println("Left in the deck " + cards.size() + "/11" + " cards");
-        if(BotPoint>=16)
+        if(PlayerPass && BotPass)
             CheckResults();
         else
-            PlayerTakeCards();
+        PlayerTakeCards();
     }
 
     static void BotLogic() {
@@ -76,36 +80,33 @@ public class Main {
     }
 
     static void CheckResults() {
-        if (PlayerPoint > BotPoint && PlayerPoint <22 || PlayerPoint==21) {
+        if (PlayerPoint > BotPoint && PlayerPoint <= 21 && BotPoint <= 21) {
             System.out.println("");
             System.out.println("Player won by typing " + PlayerPoint + " score");
-            System.out.println("Bot score = "+BotPoint);
+            System.out.println("Bot score = " + BotPoint);
         }
-        else if (BotPoint > PlayerPoint && BotPoint <22 || BotPoint==21) {
+        else if (PlayerPoint < BotPoint && PlayerPoint <=21 && BotPoint <=21){
             System.out.println("");
             System.out.println("Bot won by typing " + BotPoint + " score");
-            System.out.println("Player score = "+PlayerPoint);
+            System.out.println("Player score = " + PlayerPoint);
         }
-        else if (PlayerPoint > 21 && BotPoint > 21 || PlayerPoint == BotPoint) {
+        else if (PlayerPoint == BotPoint || PlayerPoint >21 && BotPoint >21) {
             System.out.println("");
             System.out.println("Draw! Nice game");
+            System.out.println("====================");
+            System.out.println("Player score = "+ PlayerPoint);
+            System.out.println("Bot score = "+ BotPoint);
+            System.out.println("====================");
         }
-        else if (PlayerPoint >21 && BotPoint <22) {
+        else if (PlayerPoint > 21 && BotPoint <=21) {
             System.out.println("");
-            System.out.println("Bot won by typing " + BotPoint + "score");
-            System.out.println("Player score = "+PlayerPoint);
+            System.out.println("Bot won by typing " + BotPoint + " score");
+            System.out.println("Player score = " + PlayerPoint);
         }
-        else if (BotPoint >21 && PlayerPoint <22) {
+        else if (PlayerPoint <=21 && BotPoint >21) {
             System.out.println("");
             System.out.println("Player won by typing " + PlayerPoint + " score");
-            System.out.println("Bot score = "+BotPoint);
+            System.out.println("Bot score = " + BotPoint);
         }
-        else if (PlayerPass && BotPass) {
-            System.out.println("" + "\n" + "==================");
-            System.out.println("Player score = " + PlayerPoint + "\n" + "Bot score = " + BotPoint); //Результаты, у кого больше, тот и победил
-            System.out.println("==================");
-        }
-        else
-            PlayerTakeCards();
     }
 }
